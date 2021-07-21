@@ -1938,14 +1938,15 @@ struct ImageFormat : public cl_image_format
     }
 
     //! \brief Assignment operator.
-    ImageFormat& operator = (const ImageFormat& rhs)
-    {
-        if (this != &rhs) {
-            this->image_channel_data_type = rhs.image_channel_data_type;
-            this->image_channel_order     = rhs.image_channel_order;
-        }
-        return *this;
-    }
+    // TO REMOVE - DONE AUTOMATICALLY
+    // ImageFormat& operator = (const ImageFormat& rhs)
+    // {
+    //     if (this != &rhs) {
+    //         this->image_channel_data_type = rhs.image_channel_data_type;
+    //         this->image_channel_order     = rhs.image_channel_order;
+    //     }
+    //     return *this;
+    // }
 };
 
 /*! \brief Class interface for cl_device_id.
