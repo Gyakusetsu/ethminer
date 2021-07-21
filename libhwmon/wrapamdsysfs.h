@@ -17,7 +17,7 @@ typedef struct
     unsigned int* sysfs_pci_device_id;
 } wrap_amdsysfs_handle;
 
-typedef struct
+typedef struct pciInfo
 {
     int DeviceId = -1;
     int HwMonId = -1;

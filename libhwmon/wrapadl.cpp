@@ -37,7 +37,7 @@ wrap_adl_handle* wrap_adl_create()
 #define libatiadlxx "libatiadlxx.so"
 #else
 #define libatiadlxx ""
-#warning "Unrecognized platform: need ADL DLL path for this platform..."
+//#warning "Unrecognized platform: need ADL DLL path for this platform..."
     return nullptr;
 #endif
 

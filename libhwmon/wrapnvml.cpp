@@ -48,7 +48,7 @@ wrap_nvml_handle* wrap_nvml_create()
 #define libnvidia_ml "libnvidia-ml.so.1"
 #else
 #define libnvidia_ml ""
-#warning "Unrecognized platform: need NVML DLL path for this platform..."
+//#warning "Unrecognized platform: need NVML DLL path for this platform..."
     return nullptr;
 #endif
 
