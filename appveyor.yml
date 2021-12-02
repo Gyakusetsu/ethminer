@@ -11,7 +11,7 @@ os: "Visual Studio 2017"
 environment:
   matrix:
     - CUDA_VER: "10.0"
-    - CUDA_VER: "11.0"
+    - CUDA_VER: "11.5"
   HUNTER_CACHE_TOKEN:
     secure: VnpF1MH5MEFvUI5MiMMMFlmbDdst+bfom5ZFVgalYPp/SYDhbejjXJm9Dla/IgpC
 
@@ -19,7 +19,7 @@ cache:
   - C:\CUDA\v8.0 -> appveyor.yml
   - C:\CUDA\v9.1 -> appveyor.yml
   - C:\CUDA\v10.0 -> appveyor.yml
-  - C:\CUDA\v11.0 -> appveyor.yml
+  - C:\CUDA\v11.5 -> appveyor.yml
 
 # Download CUDA Windows installer (local) and extract /compiler/* to /CUDA/vX.0/ zip archive.
 install: |
@@ -43,7 +43,7 @@ install: |
 build_script:
   - call "%ProgramFiles(x86)%\Microsoft Visual Studio\2017\Community\Common7\Tools\VsMSBuildCmd.bat"
   - set CMAKE_ARGS=-G "Visual Studio 15 2017 Win64" -H. -Bbuild -DETHASHCUDA=ON -DAPICORE=ON -DHUNTER_JOBS_NUMBER=%NUMBER_OF_PROCESSORS%
-  - if "%CUDA_VER%" NEQ "10.0" set CMAKE_ARGS=%CMAKE_ARGS% -T v140
+  # - if "%CUDA_VER%" NEQ "10.0" set CMAKE_ARGS=%CMAKE_ARGS% -T v140
   - cmake %CMAKE_ARGS%
   - cmake --build build --config Release --target package
   - ps: |
