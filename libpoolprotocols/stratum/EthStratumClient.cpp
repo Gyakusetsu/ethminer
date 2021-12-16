@@ -1723,8 +1723,11 @@ void EthStratumClient::onRecvSocketDataCompleted(
 
                     // Test validity of chunk and process
                     Json::Value jMsg;
-                    Json::Reader jRdr;
-                    if (jRdr.parse(line, jMsg))
+                    Json::CharReaderBuilder jRdr;
+                    std::string errs;
+                    std::stringstream ss;
+                    ss << line;
+                    if (Json::parseFromStream(jRdr, ss, &jMsg, &errs))
                     {
                         try
                         {
@@ -1738,9 +1741,8 @@ void EthStratumClient::onRecvSocketDataCompleted(
                     }
                     else
                     {
-                        string what = jRdr.getFormattedErrorMessages();
-                        boost::replace_all(what, "\n", " ");
-                        cwarn << "Stratum got invalid Json message : " << what;
+                        boost::replace_all(errs, "\n", " ");
+                        cwarn << "Stratum got invalid Json message : " << errs;
                     }
                 }
             }

@@ -136,8 +136,10 @@ void EthGetworkClient::handle_connect(const boost::system::error_code& ec)
         // Retrieve 1st line waiting in the queue and submit
         // if other lines waiting they will be processed 
         // at the end of the processed request
-        Json::Reader jRdr;
+        Json::CharReaderBuilder jRdr;
+        std::string errs;
         std::string* line;
+        std::stringstream ss;
         std::ostream os(&m_request);
         if (!m_txQueue.empty())
         {
@@ -146,7 +148,8 @@ void EthGetworkClient::handle_connect(const boost::system::error_code& ec)
                 if (line->size())
                 {
 
-                    jRdr.parse(*line, m_pendingJReq);
+                    ss << *line;
+                    Json::parseFromStream(jRdr, ss, &m_pendingJReq, &errs);
                     m_pending_tstamp = std::chrono::steady_clock::now();
 
                     // Make sure path begins with "/"
@@ -305,17 +308,19 @@ void EthGetworkClient::handle_read(
 
                 // Test validity of chunk and process
                 Json::Value jRes;
-                Json::Reader jRdr;
-                if (jRdr.parse(line, jRes))
+                Json::CharReaderBuilder jRdr;
+                std::string errs;
+                std::stringstream ss;
+                ss << line;
+                if (Json::parseFromStream(jRdr, ss, &jRes, &errs))
                 {
                     // Run in sync so no 2 different async reads may overlap
                     processResponse(jRes);
                 }
                 else
                 {
-                    string what = jRdr.getFormattedErrorMessages();
-                    boost::replace_all(what, "\n", " ");
-                    cwarn << "Got invalid Json message : " << what;
+                    boost::replace_all(errs, "\n", " ");
+                    cwarn << "Got invalid Json message : " << errs;
                 }
 
             }

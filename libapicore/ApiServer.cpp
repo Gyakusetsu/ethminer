@@ -880,8 +880,11 @@ void ApiConnection::onRecvSocketDataCompleted(
                         // Test validity of chunk and process
                         Json::Value jMsg;
                         Json::Value jRes;
-                        Json::Reader jRdr;
-                        if (jRdr.parse(line, jMsg))
+                        Json::CharReaderBuilder jRdr;
+                        std::string errs;
+                        std::stringstream ss;
+                        ss << line;
+                        if (Json::parseFromStream(jRdr, ss, &jMsg, &errs))
                         {
                             try
                             {
@@ -903,10 +906,9 @@ void ApiConnection::onRecvSocketDataCompleted(
                             jRes["jsonrpc"] = "2.0";
                             jRes["id"] = Json::Value::null;
                             jRes["error"]["errorcode"] = "-32700";
-                            string what = jRdr.getFormattedErrorMessages();
-                            boost::replace_all(what, "\n", " ");
-                            cwarn << "API : Got invalid Json message " << what;
-                            jRes["error"]["message"] = "Json parse error : " + what;
+                            boost::replace_all(errs, "\n", " ");
+                            cwarn << "API : Got invalid Json message " << errs;
+                            jRes["error"]["message"] = "Json parse error : " + errs;
                         }
 
                         // Send response to client
