@@ -30,6 +30,8 @@
 #include <libethash-cpu/CPUMiner.h>
 #endif
 
+#include <ethash/global_context.hpp>
+
 namespace dev
 {
 namespace eth
