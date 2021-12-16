@@ -469,6 +469,8 @@ void CLMiner::enumDevices(std::map<string, DeviceDescriptor>& _DevicesCollection
             platformType = ClPlatformTypeEnum::Nvidia;
         else if (platformName.find("Intel") != string::npos)
             platformType = ClPlatformTypeEnum::Intel;
+        else if (platformName == "Apple")
+            platformType = ClPlatformTypeEnum::Amd;
         else
         {
             std::cerr << "Unrecognized platform " << platformName << std::endl;
