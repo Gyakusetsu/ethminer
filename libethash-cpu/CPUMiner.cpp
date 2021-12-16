@@ -31,6 +31,7 @@ along with ethminer.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <libethcore/Farm.h>
 #include <ethash/ethash.hpp>
+#include <ethash/global_context.hpp>
 
 #include <boost/version.hpp>
 
