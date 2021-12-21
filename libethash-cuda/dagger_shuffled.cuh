@@ -4,7 +4,7 @@
 
 #include "cuda_helper.h"
 
-#define _PARALLEL_HASH 4
+#define _PARALLEL_HASH 8
 
 DEV_INLINE bool compute_hash(uint64_t nonce, uint2* mix_hash)
 {
