@@ -20,11 +20,11 @@ HunterGate(
 )
 
 project(ethminer)
-set(PROJECT_VERSION 0.19.5)
+set(PROJECT_VERSION 0.19.6)
 
 cable_set_build_type(DEFAULT Release CONFIGURATION_TYPES Release RelWithDebInfo)
 
-option(ETHASHCL "Build with OpenCL mining" OFF)
+option(ETHASHCL "Build with OpenCL mining" ON)
 option(ETHASHCUDA "Build with CUDA mining" ON)
 option(ETHASHCPU "Build with CPU mining (only for development)" OFF)
 option(ETHDBUS "Build with D-Bus support" OFF)
