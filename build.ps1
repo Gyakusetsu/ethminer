@@ -2,16 +2,24 @@
 # ./build.ps1 -Location ./build -Tag v0.19.8
 Param(
     [Parameter()]
-    $Location = './build'
+    [AllowNull()]
+    [string]$Location = "./build",
 
     [Parameter(Mandatory)]
-    $Tag
+    [string]$Tag
 )
+
+$ZipFile = "ethminer.zip"
+$VsVersion = "Visual Studio 15 2017 Win64"
 
 git tag $Tag
 
 Remove-Item $Location -Recurse
-cd build
-cmake .. -G "Visual Studio 15 2017 Win64"
+Remove-Item $ZipFile -Recurse
+
+mkdir -p $Location
+cd $Location
+cmake .. -G $VsVersion
 cmake --build . --config Release --target package
-cp ethminer.zip ../ethminer.zip
+cp $ZipFile ../$ZipFile
+cd ..
